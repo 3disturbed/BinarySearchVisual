@@ -6,6 +6,9 @@ An interactive tool to help you understand the **Binary Search** algorithm.
 
 ![Binary Search Visualization](https://github.com/user-attachments/assets/098bf2fb-0658-4410-a4fd-11164e260bd5)
 
+![BSAVis](https://github.com/user-attachments/assets/34d4b15d-c6a3-47b2-ab8f-da2bc299f4f7)
+
+
 **Access the Visualizer**: Click [here](https://3disturbed.github.io/BinarySearchVisual/BinarySearchVisualizer.html) to open the Binary Search Visualizer in your web browser.
 
 ## Introduction
