@@ -8,17 +8,18 @@
         <style>
             * {
                 margin: 0;
-                padding: 0;
+                padding: 4px;
                 box-sizing: border-box;
             }
 
-            body, html {
-                height: 100%;
+            body {
+                
                 font-family: Arial, sans-serif;
                 background-color: rgb(33, 32, 32);
                 color: rgb(174, 174, 174);
-                height: 100vh;
+                height: 99vh;
                 text-align: center;
+                
             }
             h1 {
                 text-align: center;
@@ -32,6 +33,19 @@
 
             p {
                 text-align: center;
+                border: 1px solid black;
+                border-radius: 10px;
+                background-color: rgb(33, 32, 32);
+            }
+            table {
+                align-self: center;
+                justify-self: center;
+                margin-left: auto;
+                margin-right: auto;
+
+
+                width: 100%;
+                height: 90%;
             }
 
             button {
@@ -42,9 +56,13 @@
                 background-image: url('./BSAV_BG.png'); /* Replace with actual image path */
                 background-size: cover;
                 background-position: center;
+                background-attachment: fixed;
+                
                 background-repeat: no-repeat;
                 height: 100vh;
                 width: 100vw;
+                top:0;
+                left: 0;
                 position: absolute;
                 z-index: -1;
             }
@@ -56,36 +74,72 @@
                 color: white;
                 text-align: center;
                 font-family: Arial, sans-serif;
+                height: 100vh;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .foot {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                color: white;
+                
+            }
+            .visualizer {
+                align-self: center;
+                display: flex;
+                flex-wrap: wrap;
+                width: 550px;
+                justify-content: space-evenly;
+                align-content: center;
+                grid-gap: 2px;
+                margin-left: auto;
+                margin-right: auto;
+                grid-template-columns: repeat(10, auto);
+                grid-gap: 5px;
+                justify-content: center;
+                justify-self: center;
+                align-self: center;
+                align-content: center;
+                margin: 0 auto;
+                border: 5px solid white;
+                height: 90vh;
+                margin-left: auto;
+                margin-right: auto;
             }
         </style>
     </head>
     <body>
         <div class="background"></div>
-        <h1>Algorithm Visualizer</h1>
+        <p>Binary Search Algorithm - Visualizer</p>
         <table width="100%">
             <tr>
-                <td width="50%">
-                    <h2>Explanation</h2>
-                    <p> The visualizer displays the numbers 1-100 in a grid.</p>
-                    <p> The user can select a number between 1-100 and the algorithm will guess the number using the Binary Search algorithm.</p>
-                    <p>The visualizer will update the grid to show which numbers have been guessed and which numbers are still possible.</p>
-                    <p>The user can also use the Random Guess and Linear Search algorithms to guess the number. The user can reset the simulation to try again.</p>
-                    <h2>Instructions</h2>
-                    <p>Think of a number between 1 and 100.</p>
-                    <p>Click on the buttons to use the algorithms.</p>
-                    <P><h2>Linear Search</h2> This algorithm searches for the number by checking each number in order from 1 to 100.</P>
-                    <P><h2>Binary Search</h2> This algorithm guesses the number by dividing the range of numbers in half each time.</P>
-                    <P><h2>Random Guess</h2> This algorithm randomly guesses a number from the remaining numbers.</P>
-                    <P><h2>Reset</h2> This button resets the simulation so you can try again.</P>
-                   
-                </td>  
+                
                 <td>
                     <div id="Visualizer"></div>
                 </td>
-
+<td width="70%">
+                    <h2>Explanation</h2>
+                    <br>
+                    <p> The visualizer displays the numbers 1-100 in a grid.
+                    <br> The user can select a number between 1-100 and the algorithm will guess the number using the Binary Search algorithm.
+                    <br>The visualizer will update the grid to show which numbers have been guessed and which numbers are still possible.
+                    <br>The user can also use the Random Guess and Linear Search algorithms to guess the number. The user can reset the simulation to try again.</p>
+                    <br><h2>Instructions</h2>
+                    <br><p>Think of a number between 1 and 100.<br>
+                    Click on the buttons to use the algorithms.</p>
+                    <br><h2>Linear Search</h2>
+                    <P> This algorithm searches for the number by checking each number in order from 1 to 100.</P>
+                    <br><h2>Binary Search</h2>
+                    <P> This algorithm guesses the number by dividing the range of numbers in half each time.</P>
+                    <br><h2>Random Guess</h2><P> This algorithm randomly guesses a number from the remaining numbers.</P>
+                    <br><h2>Reset</h2><P> This button resets the simulation so you can try again.</P>
+                   
+                </td>  
             </tr>
         </table>
-        <p style="text-align: center;">Written by Ben Darlington </p>
+        <div id="foot"><p>Written by Ben Darlington</p> </div>
     </body>
     <script>
             // Variables
@@ -101,24 +155,37 @@
         // Set up the Visualizer div to be a grid
         const visualizer = document.getElementById('Visualizer');
 
-        // flex space evenly rows of 10
         visualizer.style.display = 'flex';
         visualizer.style.flexWrap = 'wrap';
-        visualizer.style.width = '550px';
+        visualizer.style.width = '600px';
         visualizer.style.justifyContent = 'space-evenly';
         visualizer.style.alignContent = 'center';
-        //visualizer.style.gridTemplateColumns = 'repeat(10, auto)';
-        visualizer.style.gridGap = '2px';
+        visualizer.style.gridTemplateColumns = 'repeat(10, auto)';
+
+        visualizer.style.gridGap = '5px';
         visualizer.style.margin = '10px';
+        visualizer.style.border = '5px solid black';
+        visualizer.style.boxShadow = '3px 3px 3px black';
+        visualizer.style.backgroundColor = '#111111';
+        visualizer.style.borderRadius = '10px';
+        
 
         // Add 100 number divs to the Visualizer div
         for (let i = 1; i <= 100; i++) {
+            // new line every 10 numbers
+
+        
             const numberDiv = document.createElement('div');
             numberDiv.textContent = i;
             // auto size the divs
             numberDiv.style.width = '50px';
             numberDiv.style.height = '50px';
+            numberDiv.style.border = '2px solid black';
+            //shadow
+            numberDiv.style.boxShadow = '3px 3px 3px black';
             
+            //radius
+            numberDiv.style.borderRadius = '10px';
 
             numberDiv.style.backgroundColor = 'blue';
             numberDiv.style.color = 'white';
