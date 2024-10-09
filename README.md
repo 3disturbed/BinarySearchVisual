@@ -23,7 +23,6 @@ This visualization tool provides a step-by-step graphical representation of the 
 ## How to Use the Visualizer
 
 1. **Access the Visualizer**: Click [here](https://3disturbed.github.io/BinarySearchVisual/BinarySearchVisualizer.html) to open the Binary Search Visualizer in your web browser.
-  3. **Start Visualization**: Click the **"Start"** button to begin the visualization.
 
 ## Understanding Binary Search
 
