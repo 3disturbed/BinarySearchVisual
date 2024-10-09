@@ -1,6 +1,7 @@
 # Binary Search Visualization
 
 An interactive tool to help you understand the **Binary Search** algorithm.
+
 **Access the Visualizer**: Click [here](https://3disturbed.github.io/BinarySearchVisual/BinarySearchVisualizer.html) to open the Binary Search Visualizer in your web browser.
 
 ![Binary Search Visualization](https://github.com/user-attachments/assets/f2fc9490-e35b-48f0-bf93-3281c500c858)
