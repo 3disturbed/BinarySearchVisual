@@ -6,12 +6,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Algorithm Visualizer</title>
         <style>
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: rgb(33, 32, 32);
+                color: rgb(174, 174, 174);
+                height: 100vh;
+                text-align: center;
+            }
             h1 {
                 text-align: center;
+                color: rgb(214, 214, 214);
             }
 
             h2 {
                 text-align: center;
+                color: rgb(214, 214, 214);
             }
 
             p {
@@ -22,16 +32,32 @@
                 display: block;
                 margin: 0 auto;
             }
+            .background {
+                background-image: url('./BSAV_BG.png'); /* Replace with actual image path */
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 100vh;
+                width: 100vw;
+                position: absolute;
+                z-index: -1;
+            }
         </style>
     </head>
     <body>
+        <div class="background"></div>
         <h1>Algorithm Visualizer</h1>
         <table width="100%">
             <tr>
                 <td width="50%">
-                    <p> The visualizer displays the numbers 1-100 in a grid. The user can select a number between 1-100 and the algorithm will guess the number using the Binary Search algorithm.</p>
-                    <p>The visualizer will update the grid to show which numbers have been guessed and which numbers are still possible. The user can also use the Random Guess and Linear Search algorithms to guess the number. The user can reset the simulation to try again.
-                    </p>
+                    <h2>Explanation</h2>
+                    <p> The visualizer displays the numbers 1-100 in a grid.</p>
+                    <p> The user can select a number between 1-100 and the algorithm will guess the number using the Binary Search algorithm.</p>
+                    <p>The visualizer will update the grid to show which numbers have been guessed and which numbers are still possible.</p>
+                    <p>The user can also use the Random Guess and Linear Search algorithms to guess the number. The user can reset the simulation to try again.</p>
+                    <h2>Instructions</h2>
+                    <p>Think of a number between 1 and 100.</p>
+                    <p>Click on the buttons to use the algorithms.</p>
                     <P><h2>Linear Search</h2> This algorithm searches for the number by checking each number in order from 1 to 100.</P>
                     <P><h2>Binary Search</h2> This algorithm guesses the number by dividing the range of numbers in half each time.</P>
                     <P><h2>Random Guess</h2> This algorithm randomly guesses a number from the remaining numbers.</P>
