@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Algorithm Visualizer</title>
+        <style>
+            h1 {
+                text-align: center;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            p {
+                text-align: center;
+            }
+
+            button {
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Algorithm Visualizer</h1>
+        <table width="100%">
+            <tr>
+                <td width="50%">
+                    <p> The visualizer displays the numbers 1-100 in a grid. The user can select a number between 1-100 and the algorithm will guess the number using the Binary Search algorithm.</p>
+                    <p>The visualizer will update the grid to show which numbers have been guessed and which numbers are still possible. The user can also use the Random Guess and Linear Search algorithms to guess the number. The user can reset the simulation to try again.
+                    </p>
+                    <P><h2>Linear Search</h2> This algorithm searches for the number by checking each number in order from 1 to 100.</P>
+                    <P><h2>Binary Search</h2> This algorithm guesses the number by dividing the range of numbers in half each time.</P>
+                    <P><h2>Random Guess</h2> This algorithm randomly guesses a number from the remaining numbers.</P>
+                    <P><h2>Reset</h2> This button resets the simulation so you can try again.</P>
+                   
+                </td>  
+                <td>
+                    <div id="Visualizer"></div>
+                </td>
+
+            </tr>
+        </table>
+        <p style="text-align: center;">Written by Ben Darlington </p>
+    </body>
+    <script>
+            // Variables
+            let min = 1;
+        let max = 100;
+        let guessed = false;
+        let binaryTries = 0;
+        let randomTries = 0;
+        let guessedNumbers = new Set();
+        let linearIndex = 0;
+        let linearTries = 0;
+
+        // Set up the Visualizer div to be a grid
+        const visualizer = document.getElementById('Visualizer');
+
+        // flex space evenly rows of 10
+        visualizer.style.display = 'flex';
+        visualizer.style.flexWrap = 'wrap';
+        visualizer.style.width = '550px';
+        visualizer.style.justifyContent = 'space-evenly';
+        visualizer.style.alignContent = 'center';
+        //visualizer.style.gridTemplateColumns = 'repeat(10, auto)';
+        visualizer.style.gridGap = '2px';
+        visualizer.style.margin = '10px';
+
+        // Add 100 number divs to the Visualizer div
+        for (let i = 1; i <= 100; i++) {
+            const numberDiv = document.createElement('div');
+            numberDiv.textContent = i;
+            // auto size the divs
+            numberDiv.style.width = '50px';
+            numberDiv.style.height = '50px';
+            
+
+            numberDiv.style.backgroundColor = 'blue';
+            numberDiv.style.color = 'white';
+            numberDiv.style.textAlign = 'center';
+            numberDiv.style.lineHeight = '50px';
+            visualizer.appendChild(numberDiv);
+        }
+
+        // Function to update the visualizer
+        function updateVisualizer() {
+            const numberDivs = visualizer.querySelectorAll('div.number');
+            for (let i = 0; i < 100; i++) {
+                const numberDiv = numberDivs[i];
+                const number = i + 1;
+                if (number >= min && number <= max && !guessedNumbers.has(number)) {
+                    numberDiv.style.backgroundColor = 'blue';
+                } else {
+                    numberDiv.style.backgroundColor = 'red';
+                }
+            }
+        }
+
+
+
+        // Add the number divs to a class for easy selection
+        const numberDivs = visualizer.querySelectorAll('div');
+        numberDivs.forEach(div => div.classList.add('number'));
+
+        // Add a Binary Search button to the Visualizer div
+        const binaryButton = document.createElement('button');
+        binaryButton.textContent = 'Binary Search  (0 tries)';
+        binaryButton.style.width = '120px';
+        binaryButton.style.height = '50px';
+        binaryButton.style.backgroundColor = 'green';
+        binaryButton.style.color = 'white';
+        binaryButton.style.textAlign = 'center';
+        binaryButton.style.margin = '5px';
+        visualizer.appendChild(binaryButton);
+
+        // Add a Random Guess button
+        const randomButton = document.createElement('button');
+        randomButton.textContent = 'Random Guess  (0 tries)';
+        randomButton.style.width = '120px';
+        randomButton.style.height = '50px';
+        randomButton.style.backgroundColor = 'orange';
+        randomButton.style.color = 'white';
+        randomButton.style.textAlign = 'center';
+        randomButton.style.margin = '5px';
+        visualizer.appendChild(randomButton);
+
+        const linearButton = document.createElement('button');
+        linearButton.textContent = 'Linear Search (0 tries)';
+        linearButton.style.width = '120px';
+        linearButton.style.height = '50px';
+        linearButton.style.backgroundColor = 'purple';
+        linearButton.style.color = 'white';
+        linearButton.style.textAlign = 'center';
+        linearButton.style.margin = '5px';
+        visualizer.appendChild(linearButton);
+
+        // Add a Reset button
+        const resetButton = document.createElement('button');
+        resetButton.textContent = 'Reset';
+        resetButton.style.width = '100px';
+        resetButton.style.height = '50px';
+        resetButton.style.backgroundColor = 'red';
+        resetButton.style.color = 'white';
+        resetButton.style.textAlign = 'center';
+        resetButton.style.margin = '5px';
+        visualizer.appendChild(resetButton);
+
+        // Event listener for the Binary Search button
+        binaryButton.addEventListener('click', function() {
+            if (guessed) {
+                alert("You've already guessed the number. Please reset to play again.");
+                return;
+            }
+            if (min > max) {
+                alert("No numbers left to guess. Please reset to play again.");
+                return;
+            }
+
+            // Increment tries and update button text
+            binaryTries++;
+            binaryButton.textContent = `Binary Search  (${binaryTries} tries)`;
+
+            // Calculate the middle number
+            let guess = Math.floor((min + max) / 2);
+            let HighOrLow = prompt("Is your number higher, lower, or equal to " + guess + "?").toLowerCase();
+
+            if (HighOrLow == "higher") {
+                min = guess + 1;
+            } else if (HighOrLow == "lower") {
+                max = guess - 1;
+            } else if (HighOrLow == "equal" || HighOrLow == "correct") {
+                max = guess;
+                min = guess;
+                alert("I guessed your number!");
+                guessed = true;
+            } else {
+                alert("Please enter 'higher', 'lower', or 'equal'.");
+            }
+            // update the visualizer
+            updateVisualizer();
+        });
+
+        // Event listener for the Random Guess button
+        randomButton.addEventListener('click', function() {
+            if (guessed) {
+                alert("You've already guessed the number. Please reset to play again.");
+                return;
+            }
+            if (min > max) {
+                alert("No numbers left to guess. Please reset to play again.");
+                return;
+            }
+
+            // Increment tries and update button text
+            randomTries++;
+            randomButton.textContent = `Random Guess  (${randomTries} tries)`;
+
+            // Generate a list of possible numbers
+            let possibleNumbers = [];
+            for (let i = min; i <= max; i++) {
+                if (!guessedNumbers.has(i)) {
+                    possibleNumbers.push(i);
+                }
+            }
+
+            if (possibleNumbers.length === 0) {
+                alert("No numbers left to guess. Please reset to play again.");
+                return;
+            }
+
+            // Generate a random number from possible numbers
+            let randomIndex = Math.floor(Math.random() * possibleNumbers.length);
+            let guess = possibleNumbers[randomIndex];
+
+            // Ask the user if this is their number (Yes/No)
+            let isCorrect = confirm("Is your number " + guess + "? Click 'OK' for Yes and 'Cancel' for No.");
+
+            if (isCorrect) {
+                alert("I guessed your number!");
+                guessed = true;
+                // update the visualizer
+                
+            } else {
+                // Add the guessed number to the set of guessed numbers
+                guessedNumbers.add(guess);
+            }
+            // update the visualizer
+            updateVisualizer();
+        });
+
+        // Event listener for the Reset button
+        resetButton.addEventListener('click', function() {
+            min = 1;
+            max = 100;
+            guessed = false;
+            binaryTries = 0;
+            randomTries = 0;
+            guessedNumbers.clear();
+            binaryButton.textContent = 'Binary Search  (0 tries)';
+            randomButton.textContent = 'Random Guess  (0 tries)';
+            // reset the visualizer
+            updateVisualizer();
+        });
+
+        // Event listener for the Linear Search button
+        linearButton.addEventListener('click', function() {
+            if (guessed) {
+                alert("You've already guessed the number. Please reset to play again.");
+                return;
+            }
+
+            linearTries++;
+            linearButton.textContent = `Linear Search (${linearTries} tries)`;
+
+            const numberDivs = visualizer.querySelectorAll('div.number');
+            if (linearIndex < numberDivs.length) {
+                const numberDiv = numberDivs[linearIndex];
+                numberDiv.style.backgroundColor = 'yellow';
+
+                let isCorrect = confirm(`Is your number ${linearIndex + 1}? Click 'OK' for Yes and 'Cancel' for No.`);
+                if (isCorrect) {
+                    alert("I guessed your number!");
+                    guessed = true;
+                    numberDiv.style.backgroundColor = 'green';
+                } else {
+                    numberDiv.style.backgroundColor = 'red';
+                    linearIndex++;
+                }
+            } else {
+                alert("No numbers left to guess. Please reset to play again.");
+            }
+        });
+
+        // Event listener for the Reset button
+        resetButton.addEventListener('click', function() {
+            min = 1;
+            max = 100;
+            guessed = false;
+            binaryTries = 0;
+            randomTries = 0;
+            linearTries = 0;
+            jumpTries = 0;
+            fibonacciTries = 0;
+            ternaryTries = 0;
+            guessedNumbers.clear();
+            linearIndex = 0;
+            jumpIndex = 1;
+            binaryButton.textContent = 'Binary Search (0 tries)';
+            randomButton.textContent = 'Random Guess (0 tries)';
+            linearButton.textContent = 'Linear Search (0 tries)';
+            jumpButton.textContent = 'Jump Search (0 tries)';
+            fibonacciButton.textContent = 'Fibonacci Search (0 tries)';
+            ternaryButton.textContent = 'Ternary Search (0 tries)';
+            numberDivs.forEach(div => {
+                div.style.backgroundColor = 'blue';
+            });
+        });
+    </script>
+</html>
