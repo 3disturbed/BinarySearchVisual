@@ -1,0 +1,8 @@
+{
+  "name": "Binary Search Visualizer",
+  "icon": "https://3disturbed.github.io/BinarySearchVisual/Icon.png",
+  "link": "https://3disturbed.github.io/BinarySearchVisual/BinarySearchVisualizer.html",
+  "repo": "https://github.com/3disturbed/BinarySearchVisual",
+  "type": "visualizer",
+  "target": "frame"
+}
